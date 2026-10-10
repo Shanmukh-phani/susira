@@ -34,8 +34,12 @@ node -v
 
 if ! command -v mongod >/dev/null; then
   log "Installing MongoDB 8.0"
-  curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
-  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu ${CODENAME}/mongodb-org/8.0 multiverse" \
+  case "${CODENAME}" in
+    focal|jammy|noble) MONGO_CODENAME="${CODENAME}" ;;
+    *) MONGO_CODENAME="noble" ;;
+  esac
+  curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg --batch --yes --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
+  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu ${MONGO_CODENAME}/mongodb-org/8.0 multiverse" \
     > /etc/apt/sources.list.d/mongodb-org-8.0.list
   apt-get update -y
   apt-get install -y mongodb-org
