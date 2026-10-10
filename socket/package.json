@@ -1,0 +1,19 @@
+{
+  "name": "susira-socket",
+  "version": "1.0.0",
+  "description": "Sri susira solutions LLP - real-time Socket.io server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^18.0.7",
+    "jsonwebtoken": "^9.0.3",
+    "socket.io": "^4.8.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

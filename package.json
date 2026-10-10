@@ -1,0 +1,16 @@
+{
+  "name": "susira",
+  "version": "1.0.0",
+  "description": "Sri susira solutions LLP - recruitment portal (React + Node + MongoDB + Socket.io)",
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix socket install && npm --prefix frontend install",
+    "seed": "npm --prefix backend run seed",
+    "dev": "concurrently -n socket,api,web -c magenta,blue,green \"npm --prefix socket run dev\" \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "build": "npm --prefix frontend run build"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.5"
+  },
+  "private": true
+}
