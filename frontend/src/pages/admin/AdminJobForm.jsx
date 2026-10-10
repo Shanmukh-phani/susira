@@ -10,7 +10,7 @@ const DEPARTMENTS = ['IT', 'Human Resources', 'Finance', 'Sales', 'Marketing', '
 
 const EMPTY = {
   title: '',
-  company: 'Sri susira solutions LLP',
+  company: 'Susira Solutions',
   location: '',
   department: 'IT',
   employmentType: 'Full Time',

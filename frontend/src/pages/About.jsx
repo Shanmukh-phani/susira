@@ -18,7 +18,7 @@ export default function About() {
       <PageBanner title="About Company" crumbs={[{ label: 'About Company' }]} image={IMAGES.team} />
 
       <section className="container-x grid items-center gap-10 py-14 sm:py-16 lg:grid-cols-2">
-        <SafeImage src={IMAGES.about} alt="Our team celebrating a successful placement" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
+        <SafeImage src={IMAGES.about} alt="Our team celebrating a successful placement" className="aspect-[16/10] w-full rounded-2xl object-cover shadow-lg lg:aspect-[4/3]" />
         <div>
           <p className="text-sm font-semibold tracking-wide text-brand-600 uppercase">Who we are</p>
           <h2 className="section-title mt-2">{COMPANY.name}</h2>

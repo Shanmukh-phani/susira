@@ -38,7 +38,7 @@ function CandidatesCan({ onSearchClick, firstJobId }) {
     { label: 'Create Candidate Profile', icon: UserPlus, to: isCandidate ? '/candidate/dashboard?tab=profile' : '/register' },
   ]
   const cls =
-    'flex w-full items-center gap-3 rounded-lg border border-slate-200 px-3 py-3 text-left text-sm font-medium text-navy-900 transition hover:border-brand-200 hover:bg-brand-50'
+    'group flex w-full items-center gap-3 rounded-xl border border-slate-200/80 px-3 py-3 text-left text-sm font-semibold text-navy-900 transition hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 hover:shadow-soft'
   return (
     <aside className="card h-fit p-4 sm:p-5">
       <h2 className="mb-4 font-bold text-navy-900">Candidates can</h2>
@@ -46,9 +46,11 @@ function CandidatesCan({ onSearchClick, firstJobId }) {
         {items.map((item) => {
           const content = (
             <>
-              <item.icon className="h-5 w-5 shrink-0 text-brand-600" />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white">
+                <item.icon className="h-4 w-4" />
+              </span>
               <span className="flex-1">{item.label}</span>
-              <ChevronRight className="h-4 w-4 text-slate-400" />
+              <ChevronRight className="h-4 w-4 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-brand-600" />
             </>
           )
           return (
@@ -172,23 +174,25 @@ export default function Careers() {
         {/* Search + filters */}
         <form onSubmit={onSearch} className="space-y-3">
           <div className="flex gap-2">
-            <div className="flex max-w-xl flex-1 overflow-hidden rounded-md border border-slate-300 bg-white focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-100">
+            <div className="flex max-w-2xl flex-1 items-center gap-2 rounded-full border border-slate-200 bg-white p-1 pl-4 shadow-soft transition focus-within:border-brand-300 focus-within:ring-4 focus-within:ring-brand-100">
+              <Search className="h-4 w-4 shrink-0 text-slate-400" />
               <input
                 ref={searchRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search for job title, skills or company"
                 aria-label="Search jobs"
-                className="min-w-0 flex-1 px-3 py-2.5 text-sm outline-none"
+                className="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none"
               />
-              <button className="bg-brand-600 px-3.5 text-white hover:bg-brand-700" aria-label="Search">
-                <Search className="h-5 w-5" />
+              <button className="btn-primary px-4 py-2" aria-label="Search">
+                <span className="hidden sm:inline">Search</span>
+                <Search className="h-4 w-4 sm:hidden" />
               </button>
             </div>
             <button
               type="button"
               onClick={() => setShowFilters((v) => !v)}
-              className="btn-outline px-3 lg:hidden"
+              className="btn-outline shrink-0 px-3.5 lg:hidden"
               aria-expanded={showFilters}
             >
               <SlidersHorizontal className="h-4 w-4" />

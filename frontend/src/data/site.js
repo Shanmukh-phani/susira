@@ -15,25 +15,18 @@ import {
 } from 'lucide-react'
 
 export const COMPANY = {
-  name: 'Sri susira solutions LLP',
-  shortName: 'Sri susira',
+  name: 'Susira Solutions',
+  shortName: 'Susira',
   tagline: 'Your Partner in Success',
   website: 'susira.in',
   email: 'info@susira.in',
-  phone: '+91 93920 12345',
-  phoneHref: 'tel:+919392012345',
   address: 'Vijayawada, Andhra Pradesh, India',
   about:
     'Delivering exceptional recruitment and staffing solutions to help businesses grow and individuals build successful careers.',
-  social: {
-    linkedin: 'https://www.linkedin.com/',
-    facebook: 'https://www.facebook.com/',
-    instagram: 'https://www.instagram.com/',
-  },
 }
 
 export const IMAGES = {
-  hero: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80',
+  hero: 'https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=1000&q=80',
   careers: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=70',
   about: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=75',
   office: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=70',
@@ -176,7 +169,7 @@ export const INDUSTRIES = [
 export const TESTIMONIALS = [
   {
     quote:
-      'Sri susira helped us scale our engineering team from 15 to 60 within six months. The quality of profiles was consistently excellent.',
+      'Susira helped us scale our engineering team from 15 to 60 within six months. The quality of profiles was consistently excellent.',
     name: 'Ravi Kumar',
     role: 'CTO, TechNova Systems',
   },

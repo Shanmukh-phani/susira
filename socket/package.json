@@ -1,7 +1,7 @@
 {
   "name": "susira-socket",
   "version": "1.0.0",
-  "description": "Sri susira solutions LLP - real-time Socket.io server",
+  "description": "Susira Solutions - real-time Socket.io server",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",

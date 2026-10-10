@@ -1,7 +1,7 @@
 {
   "name": "susira",
   "version": "1.0.0",
-  "description": "Sri susira solutions LLP - recruitment portal (React + Node + MongoDB + Socket.io)",
+  "description": "Susira Solutions - recruitment portal (React + Node + MongoDB + Socket.io)",
   "scripts": {
     "install:all": "npm install && npm --prefix backend install && npm --prefix socket install && npm --prefix frontend install",
     "seed": "npm --prefix backend run seed",

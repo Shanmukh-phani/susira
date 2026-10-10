@@ -205,7 +205,7 @@ export function AdminLogin() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const next = safeNext(params.get('next'), '/admin')
-  const [form, setForm] = useState({ email: '', password: '' })
+  const [form, setForm] = useState({ username: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -248,8 +248,8 @@ export function AdminLogin() {
           <form onSubmit={submit} className="space-y-4">
             <Alert>{error}</Alert>
             <div>
-              <label className="label" htmlFor="a-email">Admin Email</label>
-              <input id="a-email" type="email" required autoComplete="username" className="input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              <label className="label" htmlFor="a-username">Username</label>
+              <input id="a-username" type="text" required autoComplete="username" autoCapitalize="none" spellCheck={false} className="input" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
             </div>
             <div>
               <label className="label" htmlFor="a-password">Password</label>

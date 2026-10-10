@@ -29,7 +29,7 @@ async function loginWithRole(req, res, role) {
   const { email, password } = req.body || {};
   if (!email || !password) return res.status(400).json({ message: 'Email and password are required' });
 
-  const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+  const user = await User.findOne({ email: String(email).toLowerCase() }).select('+password');
   if (!user || !(await user.comparePassword(password))) {
     return res.status(401).json({ message: 'Invalid email or password' });
   }
@@ -44,7 +44,20 @@ async function loginWithRole(req, res, role) {
 }
 
 exports.login = (req, res) => loginWithRole(req, res, 'candidate');
-exports.adminLogin = (req, res) => loginWithRole(req, res, 'admin');
+exports.adminLogin = async (req, res) => {
+  const { username, email, password } = req.body || {};
+  const identifier = String(username || email || '').trim();
+  if (!identifier || !password) return res.status(400).json({ message: 'Username and password are required' });
+
+  const user = await User.findOne({
+    $or: [{ username: identifier }, { email: identifier.toLowerCase() }],
+  }).select('+password');
+  if (!user || !(await user.comparePassword(password))) {
+    return res.status(401).json({ message: 'Invalid username or password' });
+  }
+  if (user.role !== 'admin') return res.status(403).json({ message: 'This account does not have admin access' });
+  authResponse(res, user);
+};
 
 exports.me = async (req, res) => {
   res.json({ user: req.user });

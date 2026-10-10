@@ -43,16 +43,16 @@ export default function AdminDashboard() {
         <p className="text-sm text-slate-500">Overview of your recruitment pipeline - updates in real time.</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         {cards.map((c) => (
-          <Link key={c.label} to={c.to} className="card flex items-center gap-4 p-5 transition hover:shadow-md">
-            <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${c.color}`}>
-              <c.icon className="h-6 w-6" />
+          <Link key={c.label} to={c.to} className="card flex min-w-0 flex-col items-start gap-3 p-4 transition hover:shadow-md sm:flex-row sm:items-center sm:gap-4 sm:p-5">
+            <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg sm:h-12 sm:w-12 ${c.color}`}>
+              <c.icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-2xl font-bold text-navy-900">{c.value}</p>
               <p className="text-sm text-slate-500">
-                {c.label} <span className="text-xs text-slate-400">· {c.sub}</span>
+                {c.label} <span className="block text-xs text-slate-400 sm:inline"><span className="hidden sm:inline">· </span>{c.sub}</span>
               </p>
             </div>
           </Link>

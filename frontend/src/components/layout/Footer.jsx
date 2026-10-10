@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Globe, Mail, MapPin, Phone } from 'lucide-react'
+import { Globe, Mail, MapPin } from 'lucide-react'
 import Logo from '../Logo'
-import SocialLinks from '../SocialIcons'
 import { COMPANY, SERVICES } from '../../data/site'
 
 const QUICK_LINKS = [
@@ -34,12 +33,13 @@ const footerLink = 'text-slate-300 transition-colors hover:text-white'
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-900 text-slate-300">
-      <div className="container-x grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+    <footer className="relative overflow-hidden rounded-t-[2rem] bg-navy-900 text-slate-300 sm:rounded-t-[2.5rem]">
+      <div className="bg-grid-light absolute inset-0" aria-hidden="true" />
+      <div className="absolute -top-32 left-1/3 h-72 w-72 rounded-full bg-brand-600/25 blur-3xl" aria-hidden="true" />
+      <div className="container-x relative grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-16">
         <div className="sm:col-span-2 lg:col-span-3">
           <Logo light subtitle={null} />
           <p className="mt-4 max-w-sm text-sm leading-relaxed">{COMPANY.about}</p>
-          <SocialLinks className="mt-5" itemClassName="h-8 w-8 bg-white/10 text-white hover:bg-brand-600" />
         </div>
         <div className="lg:col-span-2">
           <Column title="Quick Links">
@@ -90,11 +90,6 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href={COMPANY.phoneHref} className={`flex items-center gap-3 ${footerLink}`}>
-                <Phone className="h-4 w-4 shrink-0 text-brand-200" /> {COMPANY.phone}
-              </a>
-            </li>
-            <li>
               <a href={`https://${COMPANY.website}`} className={`flex items-center gap-3 ${footerLink}`}>
                 <Globe className="h-4 w-4 shrink-0 text-brand-200" /> {COMPANY.website}
               </a>
@@ -102,10 +97,10 @@ export default function Footer() {
           </Column>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-3 py-5 text-xs sm:flex-row">
+      <div className="relative border-t border-white/10">
+        <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-center text-xs sm:flex-row sm:text-left">
           <p>© {new Date().getFullYear()} {COMPANY.name}. All Rights Reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <Link to="/privacy-policy" className={footerLink}>
               Privacy Policy
             </Link>

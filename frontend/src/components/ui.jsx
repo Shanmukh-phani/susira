@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, Inbox, Loader2, X } from 'lucide-react'
 import { statusMeta } from '../lib/format'
 
@@ -56,7 +57,7 @@ export function Pagination({ page, pages, onChange }) {
       <button
         disabled={page <= 1}
         onClick={() => onChange(page - 1)}
-        className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50 disabled:text-slate-300 disabled:hover:bg-transparent"
+        className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50 disabled:text-slate-300 disabled:hover:bg-transparent"
       >
         <ChevronLeft className="h-4 w-4" /> <span className="hidden sm:inline">Previous</span>
       </button>
@@ -65,8 +66,8 @@ export function Pagination({ page, pages, onChange }) {
           key={n}
           onClick={() => onChange(n)}
           aria-current={n === page ? 'page' : undefined}
-          className={`h-9 min-w-9 rounded-md px-2 text-sm font-semibold ${
-            n === page ? 'bg-brand-600 text-white' : 'text-slate-700 hover:bg-slate-100'
+          className={`h-9 min-w-9 rounded-full px-2 text-sm font-semibold transition ${
+            n === page ? 'bg-brand-600 text-white shadow-glow' : 'text-slate-700 hover:bg-slate-100'
           }`}
         >
           {n}
@@ -75,7 +76,7 @@ export function Pagination({ page, pages, onChange }) {
       <button
         disabled={page >= pages}
         onClick={() => onChange(page + 1)}
-        className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50 disabled:text-slate-300 disabled:hover:bg-transparent"
+        className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium text-brand-600 hover:bg-brand-50 disabled:text-slate-300 disabled:hover:bg-transparent"
       >
         <span className="hidden sm:inline">Next</span> <ChevronRight className="h-4 w-4" />
       </button>
@@ -96,20 +97,21 @@ export function Modal({ open, onClose, title, children, size = 'max-w-lg', foote
   }, [open, onClose])
 
   if (!open) return null
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[60] flex items-end justify-center sm:items-center sm:p-4" role="dialog" aria-modal="true">
-      <div className="absolute inset-0 bg-navy-950/60" onClick={onClose} />
-      <div className={`relative flex max-h-[92vh] w-full flex-col rounded-t-2xl bg-white shadow-2xl sm:rounded-2xl ${size}`}>
-        <div className="flex items-center justify-between gap-4 border-b border-slate-200 px-5 py-4">
+      <div className="absolute inset-0 bg-navy-950/50 backdrop-blur-sm" onClick={onClose} />
+      <div className={`animate-fade-up relative flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl ${size}`}>
+        <div className="flex items-center justify-between gap-4 border-b border-slate-100 px-5 py-4 sm:px-6">
           <h2 className="text-lg font-bold text-navy-900">{title}</h2>
-          <button onClick={onClose} className="rounded-md p-1.5 text-slate-500 hover:bg-slate-100" aria-label="Close">
+          <button onClick={onClose} className="rounded-full border border-slate-200 p-1.5 text-slate-500 hover:bg-slate-50" aria-label="Close">
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="overflow-y-auto px-5 py-4">{children}</div>
-        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-slate-200 px-5 py-3">{footer}</div>}
+        <div className="overflow-y-auto px-5 py-4 sm:px-6">{children}</div>
+        {footer && <div className="flex flex-wrap justify-end gap-2 border-t border-slate-100 px-5 py-3 sm:px-6">{footer}</div>}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 
@@ -119,13 +121,18 @@ export function SafeImage({ src, alt, className, fallbackClassName = 'bg-gradien
   return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} loading="lazy" />
 }
 
-export function SectionHeading({ title, highlight, subtitle, align = 'center' }) {
+export function SectionHeading({ title, highlight, subtitle, eyebrow, align = 'center' }) {
   return (
-    <div className={`mb-8 sm:mb-10 ${align === 'center' ? 'mx-auto max-w-2xl text-center' : ''}`}>
+    <div className={`mb-10 sm:mb-12 ${align === 'center' ? 'mx-auto max-w-2xl text-center' : ''}`}>
+      {eyebrow && (
+        <span className="eyebrow mb-4">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-600" /> {eyebrow}
+        </span>
+      )}
       <h2 className="section-title">
-        {title} {highlight && <span className="text-brand-600">{highlight}</span>}
+        {title} {highlight && <span className="text-gradient">{highlight}</span>}
       </h2>
-      {subtitle && <p className="mt-3 text-slate-500">{subtitle}</p>}
+      {subtitle && <p className="mt-4 text-base text-slate-500 sm:text-lg">{subtitle}</p>}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Clock, Mail, MapPin, Phone, Send } from 'lucide-react'
+import { Clock, Mail, MapPin, Send } from 'lucide-react'
 import api, { getErrorMessage } from '../lib/api'
 import PageBanner from '../components/PageBanner'
 import { Alert } from '../components/ui'
@@ -48,7 +48,6 @@ export default function Contact() {
 
   const info = [
     { icon: MapPin, title: 'Office', text: `${COMPANY.name}, ${COMPANY.address}` },
-    { icon: Phone, title: 'Phone', text: COMPANY.phone, href: COMPANY.phoneHref },
     { icon: Mail, title: 'Email', text: COMPANY.email, href: `mailto:${COMPANY.email}` },
     { icon: Clock, title: 'Working Hours', text: 'Mon - Sat, 9:30 AM - 6:30 PM' },
   ]

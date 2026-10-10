@@ -157,6 +157,8 @@ export default function JobDetail() {
               ))}
             </dl>
 
+            <div className="mt-5 lg:hidden">{applyAction}</div>
+
             <div className="mt-8">
               <h2 className="mb-3 text-lg font-bold text-navy-900">Job Description</h2>
               <p className="leading-relaxed whitespace-pre-line text-slate-600">{job.description}</p>

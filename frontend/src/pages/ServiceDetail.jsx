@@ -1,8 +1,8 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, Phone } from 'lucide-react'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import PageBanner from '../components/PageBanner'
 import { CtaBand } from '../components/sections'
-import { COMPANY, IMAGES, SERVICES } from '../data/site'
+import { IMAGES, SERVICES } from '../data/site'
 
 export default function ServiceDetail() {
   const { slug } = useParams()
@@ -36,9 +36,6 @@ export default function ServiceDetail() {
             <Link to={`/contact?type=employer&subject=${encodeURIComponent(service.title)}`} className="btn-primary">
               Request this service <ArrowRight className="h-4 w-4" />
             </Link>
-            <a href={COMPANY.phoneHref} className="btn-outline">
-              <Phone className="h-4 w-4" /> {COMPANY.phone}
-            </a>
           </div>
         </article>
         <aside className="card h-fit p-4">

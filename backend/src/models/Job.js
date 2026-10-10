@@ -5,7 +5,7 @@ const EMPLOYMENT_TYPES = ['Full Time', 'Part Time', 'Contract', 'Internship', 'T
 const jobSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
-    company: { type: String, trim: true, default: 'Sri susira solutions LLP' },
+    company: { type: String, trim: true, default: 'Susira Solutions' },
     location: { type: String, required: true, trim: true },
     department: { type: String, trim: true, default: 'General' },
     employmentType: { type: String, enum: EMPLOYMENT_TYPES, default: 'Full Time' },

@@ -1,7 +1,7 @@
 {
   "name": "susira-backend",
   "version": "1.0.0",
-  "description": "Sri susira solutions LLP - REST API (Node, Express, MongoDB)",
+  "description": "Susira Solutions - REST API (Node, Express, MongoDB)",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",

@@ -334,19 +334,19 @@ export default function CandidateDashboard() {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-          <nav className="card flex gap-1 overflow-x-auto p-2 lg:h-fit lg:flex-col" aria-label="Dashboard">
+          <nav className="card grid grid-cols-2 gap-1 p-2 sm:flex sm:flex-wrap lg:h-fit lg:flex-col" aria-label="Dashboard">
             {TABS.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setParams({ tab: t.id })}
-                className={`flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium whitespace-nowrap ${
-                  tab === t.id ? 'bg-brand-600 text-white' : 'text-slate-700 hover:bg-slate-100'
+                className={`flex min-w-0 items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
+                  tab === t.id ? 'bg-brand-600 text-white shadow-glow' : 'text-slate-700 hover:bg-slate-100'
                 }`}
               >
-                <t.icon className="h-4 w-4" /> {t.label}
+                <t.icon className="h-4 w-4 shrink-0" /> <span className="truncate">{t.label}</span>
               </button>
             ))}
-            <Link to="/careers" className="flex shrink-0 items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium whitespace-nowrap text-brand-600 hover:bg-brand-50">
+            <Link to="/careers" className="col-span-2 flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium whitespace-nowrap text-brand-600 hover:bg-brand-50 sm:justify-start">
               <Briefcase className="h-4 w-4" /> Browse Jobs
             </Link>
           </nav>
