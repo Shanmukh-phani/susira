@@ -19,7 +19,6 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 export DEBIAN_FRONTEND=noninteractive
-CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME:-jammy}")"
 
 log "Installing base packages"
 apt-get update -y
@@ -32,19 +31,24 @@ if ! command -v node >/dev/null || [ "$(node -p 'process.versions.node.split("."
 fi
 node -v
 
-if ! command -v mongod >/dev/null; then
-  log "Installing MongoDB 8.0"
-  case "${CODENAME}" in
-    focal|jammy|noble) MONGO_CODENAME="${CODENAME}" ;;
-    *) MONGO_CODENAME="noble" ;;
-  esac
-  curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg --batch --yes --dearmor -o /usr/share/keyrings/mongodb-server-8.0.gpg
-  echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu ${MONGO_CODENAME}/mongodb-org/8.0 multiverse" \
-    > /etc/apt/sources.list.d/mongodb-org-8.0.list
-  apt-get update -y
-  apt-get install -y mongodb-org
+# MongoDB 8.0+ refuses to start on Linux kernel 6.19+ (SERVER-121912), so run 7.0 in Docker.
+log "Starting MongoDB 7.0 (Docker)"
+if systemctl list-unit-files mongod.service >/dev/null 2>&1; then
+  systemctl disable --now mongod 2>/dev/null || true
 fi
-systemctl enable --now mongod
+command -v docker >/dev/null || apt-get install -y docker.io
+systemctl enable --now docker
+if ! docker ps -a --format '{{.Names}}' | grep -qx susira-mongo; then
+  docker run -d --name susira-mongo --restart unless-stopped \
+    -p 127.0.0.1:27017:27017 \
+    -v /var/lib/susira-mongo:/data/db \
+    mongo:7.0
+fi
+docker start susira-mongo >/dev/null
+for i in $(seq 1 30); do
+  docker exec susira-mongo mongosh --quiet --eval 'db.runCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && break
+  sleep 2
+done
 
 if ! command -v pm2 >/dev/null; then
   log "Installing PM2"
