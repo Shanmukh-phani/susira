@@ -98,9 +98,8 @@ pm2 save
 pm2 startup systemd -u root --hp /root >/dev/null
 
 log "Configuring Nginx"
-cp deploy/nginx.conf /etc/nginx/sites-available/susira
-ln -sf /etc/nginx/sites-available/susira /etc/nginx/sites-enabled/susira
-rm -f /etc/nginx/sites-enabled/default
+cp deploy/nginx.conf /etc/nginx/conf.d/susira.conf
+rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/susira /etc/nginx/conf.d/default.conf
 nginx -t
 systemctl enable nginx
 systemctl reload nginx || systemctl restart nginx
