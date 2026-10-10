@@ -14,7 +14,7 @@ npm --prefix frontend run build
 pm2 startOrReload ecosystem.config.js
 pm2 save
 
-if ! cmp -s deploy/nginx.conf /etc/nginx/conf.d/susira.conf; then
+if ! grep -qs "managed by Certbot" /etc/nginx/conf.d/susira.conf && ! cmp -s deploy/nginx.conf /etc/nginx/conf.d/susira.conf; then
   cp deploy/nginx.conf /etc/nginx/conf.d/susira.conf
   rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/susira /etc/nginx/conf.d/default.conf
   nginx -t && systemctl reload nginx

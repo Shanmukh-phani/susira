@@ -106,7 +106,11 @@ pm2 save
 pm2 startup systemd -u root --hp /root >/dev/null
 
 log "Configuring Nginx"
-cp deploy/nginx.conf /etc/nginx/conf.d/susira.conf
+if grep -qs "managed by Certbot" /etc/nginx/conf.d/susira.conf; then
+  echo "Keeping existing HTTPS (Certbot) Nginx config"
+else
+  cp deploy/nginx.conf /etc/nginx/conf.d/susira.conf
+fi
 rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/susira /etc/nginx/conf.d/default.conf
 nginx -t
 systemctl enable nginx
